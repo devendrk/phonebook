@@ -1,98 +1,88 @@
+
 const express = require('express')
+const cors = require('cors')
+
 const app = express()
-const bodyParser = require('body-parser')
+const port = process.env.PORT || 3001
 
-app.use(bodyParser.json())
+app.use(express.json())
+app.use(cors())
 
-
-const persons = [
-
+const phonebook = [
   {
-    name: "Arto Hellas",
-    number: "040-120003",
-    id: 1
+    "name": "Arto heigas",
+    "number": "789234",
+    "id": 1
   },
   {
-    name: "devnedra",
-    number: "040-145003",
-    id: 2
+    "name": "second contact",
+    "number": "789",
+    "id": 2
   },
   {
-    name: "Nishan T",
-    number: "040-000003",
-    id: 3
-  },
-  {
-    name: "GOlden R",
-    number: "040-1299",
-    id: 4
+    "name": "Tthird contact",
+    "number": "89e8",
+    "id": 3
   }
 ]
 
-//  get info page
-app.get('/info', (req, res) => {
-  console.log('len', req.length, typeof lrn)
-  const textt = `<h1> Helow Fuckers fuck oup</h1>`
-  res.send(textt)
-})
+app.get('/', (req, res) => res.send('Hello World!............!'))
 
-//  get list of persons
-app.get('/api/persons/', (req, res) => {
-  res.send(persons)
-})
+app.get('/persons', (req, res) => res.send(phonebook))
 
-// get individual person by its unique id
-app.get('/api/persons/:id', (req, res) => {
-  const id = parseInt(req.params.id)
-  const person = persons.find(note => note.id === id)
-
-  // if data doesnot exists it will give 404 not fund status else response with requested id 
-  if (person) {
-    res.json(person)
-  } else {
-    res.status(404).send('person with id ' + id + 'doesnot exist yet !!')
+app.get('/persons/:id', (req, res) => {
+  const contact = phonebook.find(c => c.id === parseInt(req.params.id))
+  if (!contact) {
+    res.status(404).send('requested phone book is not available ')
   }
+  res.send(contact)
 })
+
 
 // generate random id
-const generateId = () => {
-  const randomId = persons.length > 0
-    ? Math.floor(Math.random() * persons.length * 50)
-    : 1
+const generateId = (phonebook) => {
+  const randomId = Math.floor(Math.random() * phonebook.length * 50)
   return randomId
 }
-//create new person data
+
+// Add new contact
 app.post('/persons', (req, res) => {
-  const body = req.body
-  if (!body.name || !body.number) {
-    return Response.status(400).json({
-      error: 'name or number is missing'
-    })
-  }
-  else if (body.name === (persons.map(person => person))) {
-    return Response.status(400).json({
-      error: 'name already exist'
-    })
-  }
-  const person = {
-    name: body.name,
-    number: body.number,
-    id: generateId()
-  }
-  persons.concat(person)
 
-  res.json(person)
+  const contact = {
+    name: req.body.name,
+    number: req.body.number,
+    id: generateId(phonebook)
+  }
+
+  if (phonebook.find(contact => contact.name === req.body.name)) {
+    return res.status(404).send({ error: 'name must be unique' })
+  } else if (!contact.name || !contact.number) {
+    return res.status(404).send({ error: "name or number missing" })
+  }
+
+  // updates database
+  phonebook.push(contact);
+
+  // send updated response to the client
+  res.send(contact)
 })
 
-
-// deleting person by its id 
-app.delete('/persons/:id', (req, res) => {
-  const id = req.params.id
-  persons.filter(person => person.id !== id)
-  console.log('delete', persons)
-  req.status.end()
+// Delete contact
+app.delete('/persons:id', (req, res) => {
+  const deleteItem = phonebook.find(item => item.id === parseInt(req.params.id))
+  if (!deleteItem) {
+    res.status(404).send({ error: "contact with the id you requestd ,do not exist or already deleted" })
+  }
+  const index = phonebook.indexOf(deleteItem)
+  phonebook.splice(index, 1)
+  res.send(deleteItem)
 })
 
-const PORT = 5001
-app.listen(PORT)
-console.log('server is running on port ...' + PORT)
+// get info
+app.get('/info', (req, res) => {
+  const contactLength = phonebook.length
+  const timeDate = new Date();
+  res.send('phoneBook has info for ' + contactLength + ' people' + '</br>' + timeDate)
+})
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))

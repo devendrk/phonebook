@@ -1,33 +1,25 @@
 {
-  "name": "node_express_mooc",
+  "name": "nodeexpress",
   "version": "1.0.0",
-  "description": "node express mongo",
+  "description": "",
   "main": "index.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "joi": "^13.7.0"
+  },
+  "devDependencies": {},
   "scripts": {
-    "start": "node index.js",
-    "watch": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/devendrk/node_express_mooc.git"
   },
-  "keywords": [
-    "Node",
-    "devendrk",
-    "express",
-    "mongo"
-  ],
-  "author": "Devendra",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/devendrk/node_express_mooc/issues"
   },
-  "homepage": "https://github.com/devendrk/node_express_mooc#readme",
-  "devDependencies": {
-    "nodemon": "^1.19.1"
-  },
-  "dependencies": {
-    "express": "^4.17.1"
-  }
+  "homepage": "https://github.com/devendrk/node_express_mooc#readme"
 }
