@@ -1,11 +1,15 @@
 
 const express = require('express')
 const cors = require('cors')
+const morgan = require('morgan')
+// app.use(morgan())
+
 
 const app = express()
 
 app.use(express.json())
 app.use(cors())
+app.use(express.static('build'))
 
 const phonebook = [
   {
@@ -67,7 +71,7 @@ app.post('/persons', (req, res) => {
 })
 
 // Delete contact
-app.delete('/persons/:id', (req, res) => {
+app.delete('/:id', (req, res) => {
   const deleteItem = phonebook.find(item => item.id === parseInt(req.params.id))
   if (!deleteItem) {
     res.status(404).send({ error: "contact with the id you requestd ,do not exist or already deleted" })

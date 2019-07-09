@@ -6,7 +6,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "joi": "^13.7.0"
+    "joi": "^13.7.0",
+    "morgan": "^1.9.1"
   },
   "engines": {
     "node": "v8.16.0",
