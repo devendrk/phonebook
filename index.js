@@ -67,7 +67,7 @@ app.post('/persons', (req, res) => {
 })
 
 // Delete contact
-app.delete('/persons:id', (req, res) => {
+app.delete('/persons/:id', (req, res) => {
   const deleteItem = phonebook.find(item => item.id === parseInt(req.params.id))
   if (!deleteItem) {
     res.status(404).send({ error: "contact with the id you requestd ,do not exist or already deleted" })
