@@ -3,7 +3,6 @@ const express = require('express')
 const cors = require('cors')
 
 const app = express()
-const port = process.env.PORT || 3001
 
 app.use(express.json())
 app.use(cors())
@@ -26,7 +25,7 @@ const phonebook = [
   }
 ]
 
-app.get('/', (req, res) => res.send('Hello World!............!'))
+app.get('/', (req, res) => res.send('<h1>Hello World!............!</h1>'))
 
 app.get('/persons', (req, res) => res.send(phonebook))
 
@@ -84,5 +83,7 @@ app.get('/info', (req, res) => {
   const timeDate = new Date();
   res.send('phoneBook has info for ' + contactLength + ' people' + '</br>' + timeDate)
 })
-
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Our app is running on port...${PORT}`);
+});
