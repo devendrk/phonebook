@@ -31,12 +31,12 @@ let persons = [
   }
 ]
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send(`<h1>Phone book has info for ${persons.length} people</h1> <br/> ${new Date().toString()}`)
 })
 
 // get persons
-app.get('api/persons', (req, res) => {
+app.get('/api/persons', (req, res) => {
   res.json(persons)
 })
 
@@ -49,7 +49,7 @@ const generateId = () => {
 }
 
 // add person
-app.post('api/persons', (req, res) => {
+app.post('/api/persons', (req, res) => {
   const person = {
     name: req.body.name,
     number: req.body.number,
@@ -68,7 +68,7 @@ app.post('api/persons', (req, res) => {
 })
 
 // get single person
-app.get('api/persons/:id', (req, res) => {
+app.get('/api/persons/:id', (req, res) => {
   const id = Number(req.params.id)
   const person = persons.find(person => person.id == id)
   if (!person) {
@@ -78,7 +78,7 @@ app.get('api/persons/:id', (req, res) => {
 })
 
 //delete person
-app.delete('api/persons/:id', (req, res) => {
+app.delete('/api/persons/:id', (req, res) => {
   const id = Number(req.params.id)
   persons = persons.filter(person => person.id !== id)
   res.status(204).end()
