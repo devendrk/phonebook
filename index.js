@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
 })
 
 // get persons
-app.get('/persons', (req, res) => {
+app.get('api/persons', (req, res) => {
   res.json(persons)
 })
 
@@ -49,7 +49,7 @@ const generateId = () => {
 }
 
 // add person
-app.post('/persons', (req, res) => {
+app.post('api/persons', (req, res) => {
   const person = {
     name: req.body.name,
     number: req.body.number,
@@ -68,7 +68,7 @@ app.post('/persons', (req, res) => {
 })
 
 // get single person
-app.get('/persons/:id', (req, res) => {
+app.get('api/persons/:id', (req, res) => {
   const id = Number(req.params.id)
   const person = persons.find(person => person.id == id)
   if (!person) {
@@ -78,7 +78,7 @@ app.get('/persons/:id', (req, res) => {
 })
 
 //delete person
-app.delete('/persons/:id', (req, res) => {
+app.delete('api/persons/:id', (req, res) => {
   const id = Number(req.params.id)
   persons = persons.filter(person => person.id !== id)
   res.status(204).end()
