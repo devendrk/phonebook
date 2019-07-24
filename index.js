@@ -2,6 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const mongoose = require('mongoose')
 
 
 const app = express()
@@ -31,13 +32,34 @@ let persons = [
   }
 ]
 
+const url = `mongodb+srv://fullstack:fullstack@cluster0-j7vjs.mongodb.net/phone-book-app?retryWrites=true&w=majority`
+
+mongoose.connect(url, { useNewUrlParser: true })
+
+const phoneBookSchema = new mongoose.Schema({
+  name: String,
+  number: Number,
+})
+const Contact = mongoose.model('Contact', phoneBookSchema)
+
+phoneBookSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
+})
+
+
 app.get('/api', (req, res) => {
   res.send(`<h1>Phone book has info for ${persons.length} people</h1> <br/> ${new Date().toString()}`)
 })
 
 // get persons
 app.get('/api/persons', (req, res) => {
-  res.json(persons)
+  Contact.find({}).then(persons => {
+    res.json(persons.map(note => note.toJSON()))
+  })
 })
 
 // generate id
