@@ -24,7 +24,9 @@ app.post('/api/persons', async (req, res) => {
     res.status(400).send(error)
   }
 })
-
+app.get('/', (req, res) => {
+  res.send('<h1>Hello World </h1>')
+})
 // get persons
 app.get('/api/persons', async (req, res) => {
   try {
