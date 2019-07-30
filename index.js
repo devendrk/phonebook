@@ -1,13 +1,10 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
-
+require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
-const Contact = require('./contact')
+const Contact = require('./models/contact')
 
 const app = express()
 app.use(bodyParser.json())

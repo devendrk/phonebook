@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 
-const dbName = 'phone-book-api'
 const url = process.env.MONGODB_URI
 mongoose.connect(url, {
   useNewUrlParser: true,
