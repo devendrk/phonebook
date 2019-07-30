@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const express = require('express')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
@@ -23,9 +27,6 @@ app.post('/api/persons', async (req, res) => {
   } catch (error) {
     res.status(400).send(error)
   }
-})
-app.get('/', (req, res) => {
-  res.send('<h1>Hello World </h1>')
 })
 // get persons
 app.get('/api/persons', async (req, res) => {
@@ -84,6 +85,6 @@ app.delete('/api/persons/:id', async (req, res) => {
   }
 })
 
-const port = process.env.PORT || 5000
+const port = process.env.PORT
 app.listen(port, () => console.log(`server is running on ${port}......`))
 

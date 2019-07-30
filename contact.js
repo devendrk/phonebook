@@ -1,9 +1,7 @@
 const mongoose = require('mongoose')
 
 const dbName = 'phone-book-api'
-const url =
-  `mongodb+srv://fullstack:fullstack@cluster0-j7vjs.mongodb.net/phone-book-app?retryWrites=true&w=majority`
-
+const url = process.env.MONGODB_URI
 mongoose.connect(url, {
   useNewUrlParser: true,
   useCreateIndex: true // creates index in db 
