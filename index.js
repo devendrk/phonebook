@@ -16,27 +16,27 @@ app.use(cors())
 app.use(express.static('build'))
 
 // add person
-app.post('/api/persons', async (req, res) => {
+app.post('/api/persons', async (req, res, next) => {
   const contact = new Contact(req.body)
   try {
     await contact.save()
     res.status(201).send(contact)
   } catch (error) {
-    res.status(400).send(error)
+    next(error)
   }
 })
 // get persons
-app.get('/api/persons', async (req, res) => {
+app.get('/api/persons', async (req, res, next) => {
   try {
     const persons = await Contact.find({})
     res.send(persons)
   } catch (error) {
-    res.status(500).send()
+    next(error)
   }
 })
 
 // get single person
-app.get('/api/persons/:id', async (req, res) => {
+app.get('/api/persons/:id', async (req, res, next) => {
   const _id = req.params.id
   try {
     const contact = await Contact.findById(_id)
@@ -45,12 +45,12 @@ app.get('/api/persons/:id', async (req, res) => {
     // }
     res.send(contact)
   } catch (error) {
-    res.status(500).send()
+    next(error)
   }
 })
 
 // update person
-app.patch('/api/persons/:id', async (req, res) => {
+app.patch('/api/persons/:id', async (req, res, next) => {
   const updates = Object.keys(req.body)
   const allowedUpdates = ['name', 'number']
   const isValidOperation = updates.every(update => allowedUpdates.includes(update))
@@ -66,21 +66,39 @@ app.patch('/api/persons/:id', async (req, res) => {
     }
     res.send(updatePerson)
   } catch (error) {
-    res.status(500).send(error)
+    next(error)
   }
 })
 
 //delete person
-app.delete('/api/persons/:id', async (req, res) => {
+app.delete('/api/persons/:id', async (req, res, next) => {
   const _id = req.params.id
   try {
     await Contact.findByIdAndDelete(_id)
     const contacts = await Contact.find({})
     res.send(contacts)
   } catch (error) {
-    res.status(500).send()
+    next(error)
   }
 })
+
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' })
+}
+
+app.use(unknownEndpoint)
+
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message)
+
+  if (error.name === 'CastError' && error.kind === 'ObjectId') {
+    return response.status(400).send({ error: 'malformatted id' })
+  }
+
+  next(error)
+}
+
+app.use(errorHandler)
 
 const port = process.env.PORT
 app.listen(port, () => console.log(`server is running on ${port}......`))
