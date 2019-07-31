@@ -18,6 +18,11 @@ app.use(express.static('build'))
 // add person
 app.post('/api/persons', async (req, res, next) => {
   const contact = new Contact(req.body)
+  if (contact.name === undefined) {
+    return res.status(400).json({
+      error: 'name missing'
+    })
+  }
   try {
     await contact.save()
     res.status(201).send(contact)
@@ -93,6 +98,8 @@ const errorHandler = (error, request, response, next) => {
 
   if (error.name === 'CastError' && error.kind === 'ObjectId') {
     return response.status(400).send({ error: 'malformatted id' })
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).json({ error: error.message })
   }
 
   next(error)

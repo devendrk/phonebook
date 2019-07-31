@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const uniqueValidator = require('mongoose-unique-validator')
 
 const url = process.env.MONGODB_URI
 mongoose.connect(url, { useNewUrlParser: true })
@@ -11,8 +12,10 @@ mongoose.connect(url, { useNewUrlParser: true })
 const contactSchema = new mongoose.Schema({
   name: {
     type: String,
+    minlength: 3,
     required: true,
     trim: true,
+    unique: true,
     lowerCase: true
   },
   number: {
@@ -21,7 +24,7 @@ const contactSchema = new mongoose.Schema({
     trim: true
   }
 })
-
+contactSchema.plugin(uniqueValidator)
 contactSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
