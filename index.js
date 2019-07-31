@@ -74,7 +74,7 @@ app.patch('/api/persons/:id', async (req, res) => {
 app.delete('/api/persons/:id', async (req, res) => {
   const _id = req.params.id
   try {
-    const deletedContact = await Contact.findByIdAndDelete(_id)
+    await Contact.findByIdAndDelete(_id)
     const contacts = await Contact.find({})
     res.send(contacts)
   } catch (error) {
