@@ -1,11 +1,10 @@
 
-#### [Front End source code ](git@github.com:devendrk/phonebook.git)
-
 [![Node Version](https://img.shields.io/badge/Node-10.16.0-339933.svg?style=flat&logo=Node.js)]()
 [![React Version](https://img.shields.io/badge/React-16.9.0-61DAFB.svg?style=flat&logo=React)]()
 [Master Branch Live Preview](https://pacific-headland-69089.herokuapp.com/)<br/>
 
 
+[Front End source Code](git@github.com:devendrk/phonebook.git)
 
 1.  **Clone this Repo**
 
