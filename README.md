@@ -1,7 +1,7 @@
 
-[![Node Version](https://img.shields.io/badge/Node-10.16.0-339933.svg?style=flat&logo=Node.js)]()[ ####Master Branch Live Preview](https://pacific-headland-69089.herokuapp.com/)<br/>
+[![Node Version](https://img.shields.io/badge/Node-10.16.0-339933.svg?style=flat&logo=Node.js)]()[ **Master Branch Live Preview**](https://pacific-headland-69089.herokuapp.com/)<br/>
 [![React Version](https://img.shields.io/badge/React-16.9.0-61DAFB.svg?style=flat&logo=React)]()
-[###Front End source Code](https://github.com/devendrk/fullstack-open-2019-mooc/tree/master/part2/phonebook)
+[**Front End source Code**](https://github.com/devendrk/fullstack-open-2019-mooc/tree/master/part2/phonebook)
 
 1.  **Clone this Repo**
 
