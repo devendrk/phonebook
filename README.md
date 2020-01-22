@@ -4,7 +4,7 @@
 [Master Branch Live Preview](https://pacific-headland-69089.herokuapp.com/)<br/>
 
 
-[Front End source Code](git@github.com:devendrk/phonebook.git)
+[Front End source Code](https://github.com/devendrk/fullstack-open-2019-mooc/tree/master/part2/phonebook)
 
 1.  **Clone this Repo**
 
