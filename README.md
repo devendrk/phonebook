@@ -7,11 +7,9 @@
 
     ```shell
     # clone this repo via github link
-    https: 
-    
     git clone https://github.com/devendrk/phonebook.git
     
-    or ssh
+    or SSH
     git clone git@github.com:devendrk/phonebook.git
     ```
 
@@ -24,7 +22,7 @@
 3.  **Open the source code and start editing!**
 
     ```shell
-    npm run start
+    npm run watch
     ```
 
 ## Prerequisites
